@@ -5,15 +5,18 @@ import { VEHICLES } from '../constants';
 const Showroom: React.FC = () => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredVehicles = filter === 'All' 
-    ? VEHICLES 
-    : VEHICLES.filter(v => v.type === filter || (filter === 'SUV & Armored' && v.type === 'SUV'));
+  const filteredVehicles = VEHICLES.filter(v => {
+    const matchesCategory = filter === 'All' || v.type === filter || (filter === 'SUV & Armored' && v.type === 'SUV');
+    const matchesSearch = v.name.toLowerCase().includes(searchQuery.toLowerCase()) || v.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="bg-background-dark text-white min-h-screen font-body overflow-x-hidden">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 glass-panel border-b-0 border-b-border-dark">
+      <nav className="fixed top-0 w-full z-50 glass-panel border-b-0 border-b-white/5">
         <div className="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('/')}>
             <span className="material-symbols-outlined text-primary text-3xl">diamond</span>
@@ -25,22 +28,29 @@ const Showroom: React.FC = () => {
             <button onClick={() => navigate('/concierge')} className="text-muted text-sm font-medium tracking-widest hover:text-white transition-colors">CONCIERGE</button>
           </div>
           <div className="flex items-center gap-6">
-            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded bg-primary/10 border border-primary/20">
+            <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded bg-secondary/10 border border-secondary/20">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
               </span>
-              <span className="text-xs font-bold text-primary tracking-wide uppercase">Concierge Online</span>
+              <span className="text-xs font-bold text-secondary tracking-wide uppercase">Concierge Online</span>
             </div>
             <div className="flex items-center gap-4 text-white">
-              <button className="hover:text-primary transition-colors">
-                <span className="material-symbols-outlined">search</span>
-              </button>
+              <div className="relative group">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted material-symbols-outlined text-[18px] group-focus-within:text-primary transition-colors">search</span>
+                <input 
+                  type="text" 
+                  placeholder="Search..." 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-white/5 border border-white/10 focus:border-primary/50 focus:bg-black/40 text-white text-xs font-medium uppercase tracking-wider rounded-sm pl-9 pr-3 py-2 w-24 md:w-40 focus:w-32 md:focus:w-60 transition-all outline-none placeholder:text-muted/70"
+                />
+              </div>
               <button className="hover:text-primary transition-colors">
                 <span className="material-symbols-outlined">notifications</span>
               </button>
-              <div onClick={() => navigate('/vault')} className="h-8 w-8 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 border border-border-dark flex items-center justify-center cursor-pointer hover:border-primary transition-colors">
-                <span className="font-display font-bold text-xs">YA</span>
+              <div onClick={() => navigate('/vault')} className="h-8 w-8 rounded-full bg-gradient-to-br from-gray-800 to-black border border-white/10 flex items-center justify-center cursor-pointer hover:border-primary transition-colors">
+                <span className="font-display font-bold text-xs text-primary">YA</span>
               </div>
             </div>
           </div>
@@ -62,13 +72,13 @@ const Showroom: React.FC = () => {
             </div>
             <h2 className="font-display text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight">
               Welcome, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Mr. Adebayo.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-500">Mr. Adebayo.</span>
             </h2>
             <p className="text-lg md:text-xl text-gray-300 font-light max-w-xl leading-relaxed">
               The city sleeps, but we do not. Browse the silent wealth collection. Your allocation for the 2024 season is ready for review.
             </p>
             <div className="pt-4 flex gap-4">
-              <button className="bg-primary text-background-dark font-body font-bold text-sm px-8 py-4 uppercase tracking-widest hover:bg-white transition-colors">
+              <button className="bg-primary text-black font-body font-bold text-sm px-8 py-4 uppercase tracking-widest hover:bg-white transition-colors">
                 View Manifest
               </button>
             </div>
@@ -105,7 +115,7 @@ const Showroom: React.FC = () => {
                 <h3 className="font-display text-white text-lg font-semibold mb-6 italic">Status</h3>
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3 text-muted text-sm hover:text-white cursor-pointer group">
-                    <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                    <span className="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
                     <span className="group-hover:translate-x-1 transition-transform">Lagos Ground</span>
                   </div>
                   <div className="flex items-center gap-3 text-muted text-sm hover:text-white cursor-pointer group">
@@ -128,7 +138,7 @@ const Showroom: React.FC = () => {
                 <div 
                   key={vehicle.id} 
                   onClick={() => navigate(`/inventory/${vehicle.id}`)}
-                  className="vehicle-card group relative break-inside-avoid rounded-card overflow-hidden bg-surface cursor-pointer border border-border-dark"
+                  className="vehicle-card group relative break-inside-avoid rounded-card overflow-hidden bg-surface cursor-pointer border border-white/5 hover:border-primary/50 transition-colors"
                 >
                   <div className={`overflow-hidden relative ${vehicle.type === 'Supercar' ? 'aspect-video' : 'aspect-[3/4]'} ${vehicle.id === 'v3' ? 'aspect-square' : ''}`}>
                     <img 
@@ -138,7 +148,7 @@ const Showroom: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-90"></div>
                     <div className="absolute top-4 right-4 glass-panel px-3 py-1 rounded-full flex items-center gap-2">
-                      <span className={`w-1.5 h-1.5 rounded-full ${vehicle.status === 'Lagos Ground' ? 'bg-primary animate-pulse' : vehicle.status === 'High Seas' ? 'bg-yellow-500' : 'bg-gray-500'}`}></span>
+                      <span className={`w-1.5 h-1.5 rounded-full ${vehicle.status === 'Lagos Ground' ? 'bg-secondary animate-pulse' : vehicle.status === 'High Seas' ? 'bg-yellow-500' : 'bg-gray-500'}`}></span>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-white">{vehicle.status}</span>
                     </div>
                   </div>
@@ -152,13 +162,20 @@ const Showroom: React.FC = () => {
                         <p className="font-body text-primary font-bold text-lg tracking-wide">{vehicle.price}</p>
                       </div>
                     </div>
-                    <button className="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 mt-4 w-full bg-white/10 hover:bg-primary hover:text-background-dark backdrop-blur-md border border-white/20 text-white font-body font-bold text-xs py-3 uppercase tracking-[0.15em] transition-all rounded-sm flex items-center justify-center gap-2">
+                    <button className="opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 mt-4 w-full bg-white/10 hover:bg-primary hover:text-black backdrop-blur-md border border-white/20 text-white hover:border-primary font-body font-bold text-xs py-3 uppercase tracking-[0.15em] transition-all rounded-sm flex items-center justify-center gap-2">
                       View Manifest <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </button>
                   </div>
                 </div>
               ))}
             </div>
+            
+            {filteredVehicles.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-20 text-center opacity-70">
+                    <span className="material-symbols-outlined text-4xl mb-2 text-muted">search_off</span>
+                    <p className="text-muted text-sm uppercase tracking-widest">No assets found matching your criteria.</p>
+                </div>
+            )}
 
             <div className="mt-20 flex flex-col items-center justify-center gap-4 text-center">
               <span className="text-primary material-symbols-outlined animate-spin text-4xl">sync</span>
@@ -185,7 +202,7 @@ const Showroom: React.FC = () => {
 
       {/* FAB */}
       <div className="fixed bottom-8 right-8 z-50">
-        <button onClick={() => navigate('/concierge')} className="group flex items-center gap-3 bg-primary text-background-dark px-5 py-3 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transition-all transform hover:-translate-y-1">
+        <button onClick={() => navigate('/concierge')} className="group flex items-center gap-3 bg-primary text-black px-5 py-3 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all transform hover:-translate-y-1">
           <span className="font-body font-bold text-sm uppercase tracking-wide">Concierge</span>
           <span className="material-symbols-outlined">chat_bubble</span>
         </button>

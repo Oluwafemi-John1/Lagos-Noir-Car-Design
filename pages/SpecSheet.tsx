@@ -5,9 +5,9 @@ const SpecSheet: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-background-light dark:bg-background-dark text-white overflow-hidden h-screen flex flex-col font-tech selection:bg-primary selection:text-background-dark">
+    <div className="bg-background-dark text-white overflow-hidden h-screen flex flex-col font-tech selection:bg-primary selection:text-black">
       {/* Top Nav */}
-      <header className="flex-none z-50 border-b border-[#283933] bg-[#111816]/90 backdrop-blur-md">
+      <header className="flex-none z-50 border-b border-white/5 bg-background-dark/95 backdrop-blur-md">
         <div className="px-6 md:px-10 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4 text-white cursor-pointer" onClick={() => navigate('/')}>
             <div className="size-6 text-primary">
@@ -21,22 +21,22 @@ const SpecSheet: React.FC = () => {
             <button onClick={() => navigate('/vault')} className="text-white text-sm font-medium hover:text-primary transition-colors">The Vault</button>
           </nav>
           <div className="flex gap-3">
-            <button onClick={() => navigate('/concierge')} className="flex h-9 items-center justify-center rounded bg-primary px-4 text-[#111816] text-sm font-bold tracking-wide hover:bg-primary/90 transition-all">
+            <button onClick={() => navigate('/concierge')} className="flex h-9 items-center justify-center rounded bg-primary px-4 text-black text-sm font-bold tracking-wide hover:bg-primary/90 transition-all shadow-[0_0_10px_rgba(212,175,55,0.2)]">
               <span>CONCIERGE</span>
             </button>
-            <button className="flex size-9 items-center justify-center rounded bg-[#283933] text-white hover:bg-[#334155] transition-colors">
+            <button className="flex size-9 items-center justify-center rounded bg-white/5 text-white hover:bg-white/10 transition-colors border border-white/5">
               <span className="material-symbols-outlined !text-[20px]">person</span>
             </button>
-            <button className="flex size-9 items-center justify-center rounded bg-[#283933] text-white hover:bg-[#334155] transition-colors">
+            <button className="flex size-9 items-center justify-center rounded bg-white/5 text-white hover:bg-white/10 transition-colors border border-white/5">
               <span className="material-symbols-outlined !text-[20px]">notifications</span>
             </button>
           </div>
         </div>
-        <div className="px-6 md:px-10 py-2 flex flex-wrap gap-2 text-xs border-t border-[#283933]">
-          <button onClick={() => navigate('/')} className="text-[#9db9b0] hover:text-white transition-colors">Showroom</button>
-          <span className="text-[#9db9b0]">/</span>
-          <span className="text-[#9db9b0]">Inventory</span>
-          <span className="text-[#9db9b0]">/</span>
+        <div className="px-6 md:px-10 py-2 flex flex-wrap gap-2 text-xs border-t border-white/5">
+          <button onClick={() => navigate('/')} className="text-muted hover:text-white transition-colors">Showroom</button>
+          <span className="text-muted">/</span>
+          <span className="text-muted">Inventory</span>
+          <span className="text-muted">/</span>
           <span className="text-primary font-medium">2024 Maybach S680</span>
         </div>
       </header>
@@ -73,14 +73,14 @@ const SpecSheet: React.FC = () => {
 
           <div className="absolute top-8 right-8 z-20">
             <div className="flex items-center gap-2 px-3 py-1 rounded bg-black/40 backdrop-blur-sm border border-white/10">
-              <div className="size-2 rounded-full bg-primary animate-pulse"></div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-primary">Live Feed</span>
+              <div className="size-2 rounded-full bg-red-500 animate-pulse"></div>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-white">Live Feed</span>
             </div>
           </div>
         </section>
 
         {/* Right Terminal */}
-        <section className="w-full lg:w-[40%] h-[50vh] lg:h-full bg-background-dark border-l border-border-dark flex flex-col relative z-10 shadow-2xl overflow-hidden">
+        <section className="w-full lg:w-[40%] h-[50vh] lg:h-full bg-[#0a0a0a] border-l border-white/5 flex flex-col relative z-10 shadow-2xl overflow-hidden">
           <div className="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-10 pb-32">
             
             <div className="mb-8">
@@ -115,7 +115,7 @@ const SpecSheet: React.FC = () => {
             </div>
 
             <div className="mb-10">
-              <h3 className="text-sm font-display font-semibold text-white mb-4 border-b border-border-dark pb-2">Technical Specifications</h3>
+              <h3 className="text-sm font-display font-semibold text-white mb-4 border-b border-white/5 pb-2">Technical Specifications</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-3 rounded border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-colors relative group">
                   <p className="text-[10px] text-muted uppercase tracking-wider mb-1">Engine</p>
@@ -143,7 +143,7 @@ const SpecSheet: React.FC = () => {
             </div>
 
             <div className="mb-10">
-              <h3 className="text-sm font-display font-semibold text-white mb-4 border-b border-border-dark pb-2">Provenance & Title</h3>
+              <h3 className="text-sm font-display font-semibold text-white mb-4 border-b border-white/5 pb-2">Provenance & Title</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between group cursor-default">
                   <div className="flex items-center gap-3">
@@ -174,13 +174,13 @@ const SpecSheet: React.FC = () => {
           </div>
 
           {/* Sticky Dock */}
-          <div className="absolute bottom-0 left-0 w-full p-6 bg-background-dark/95 backdrop-blur-xl border-t border-border-dark z-30">
+          <div className="absolute bottom-0 left-0 w-full p-6 bg-background-dark/95 backdrop-blur-xl border-t border-white/5 z-30">
             <div className="flex flex-col gap-3">
-              <button onClick={() => navigate('/concierge')} className="w-full h-12 rounded bg-primary text-background-dark font-bold font-tech uppercase tracking-widest hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(16,183,127,0.3)] hover:shadow-[0_0_30px_rgba(16,183,127,0.5)]">
+              <button onClick={() => navigate('/concierge')} className="w-full h-12 rounded bg-primary text-black font-bold font-tech uppercase tracking-widest hover:bg-primary/90 transition-all flex items-center justify-center gap-2 group shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]">
                 <span>Reserve Allocation</span>
                 <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </button>
-              <button onClick={() => navigate('/concierge')} className="w-full h-10 rounded border border-border-dark text-white font-medium text-sm font-tech uppercase tracking-wide hover:bg-white/5 transition-all flex items-center justify-center gap-2">
+              <button onClick={() => navigate('/concierge')} className="w-full h-10 rounded border border-white/10 text-white font-medium text-sm font-tech uppercase tracking-wide hover:bg-white/5 transition-all flex items-center justify-center gap-2">
                 <span className="material-symbols-outlined text-[18px] text-muted">chat</span>
                 <span>Ask Concierge</span>
               </button>
